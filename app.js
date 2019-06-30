@@ -14,8 +14,10 @@ const port = 2800;
 // 使用 express session
 app.use(
   session({
-    secret: "fuiwefbfwefwjbf"
+    secret: "fuiwefbfwefwjbf",
     // secret: 定義一組自己的私鑰（字串)
+    resave: "false",
+    saveUninitialized: "false"
   })
 );
 
@@ -35,7 +37,10 @@ app.use((req, res, next) => {
 });
 
 //connection MongoDB
-mongoose.connect("mongodb://127.0.0.1/restaurant", { useNewUrlParser: true });
+mongoose.connect("mongodb://127.0.0.1/restaurant", {
+  useNewUrlParser: true,
+  useCreateIndex: true
+});
 
 //setting express engine into handlebars
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
