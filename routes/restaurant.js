@@ -20,7 +20,8 @@ router.post("/", authenticated, (req, res) => {
     phone: req.body.phone,
     location: req.body.location,
     google_map: req.body.google_map,
-    description: req.body.description
+    description: req.body.description,
+    userId: req.user._id
   });
   restaurant.save(function(err) {
     if (err) return console.error(err);
@@ -31,49 +32,61 @@ router.post("/", authenticated, (req, res) => {
 //detail page
 router.get("/:id", authenticated, (req, res) => {
   console.log("req.params.id", req.params.id);
-  Restaurant.findById(req.params.id, (err, restaurant) => {
-    if (err) return console.error(err);
-    return res.render("show", { restaurant: restaurant });
-  });
+  Restaurant.findOne(
+    { _id: req.params.id, userId: req.user._id },
+    (err, restaurant) => {
+      if (err) return console.error(err);
+      return res.render("show", { restaurant: restaurant });
+    }
+  );
 });
 
 //edit page
 router.get("/:id/edit", authenticated, (req, res) => {
-  Restaurant.findById(req.params.id, (err, restaurant) => {
-    if (err) return console.error(err);
-    return res.render("edit", { restaurant: restaurant });
-  });
+  Restaurant.findOne(
+    { _id: req.params.id, userId: req.user._id },
+    (err, restaurant) => {
+      if (err) return console.error(err);
+      return res.render("edit", { restaurant: restaurant });
+    }
+  );
 });
 
 //edit action
 router.put("/:id", authenticated, (req, res) => {
-  Restaurant.findById(req.params.id, (err, restaurant) => {
-    if (err) return console.error(err);
-    (restaurant.name = req.body.name),
-      (restaurant.name_en = req.body.name_en),
-      (restaurant.category = req.body.category),
-      (restaurant.rating = req.body.rating),
-      (restaurant.image = req.body.image),
-      (restaurant.phone = req.body.phone),
-      (restaurant.location = req.body.location),
-      (restaurant.google_map = req.body.google_map),
-      (restaurant.description = req.body.description);
-
-    restaurant.save(function(err) {
+  Restaurant.findOne(
+    { _id: req.params.id, userId: req.user._id },
+    (err, restaurant) => {
       if (err) return console.error(err);
-      return res.redirect(`/restaurant/${req.params.id}`);
-    });
-  });
+      (restaurant.name = req.body.name),
+        (restaurant.name_en = req.body.name_en),
+        (restaurant.category = req.body.category),
+        (restaurant.rating = req.body.rating),
+        (restaurant.image = req.body.image),
+        (restaurant.phone = req.body.phone),
+        (restaurant.location = req.body.location),
+        (restaurant.google_map = req.body.google_map),
+        (restaurant.description = req.body.description);
+
+      restaurant.save(function(err) {
+        if (err) return console.error(err);
+        return res.redirect(`/restaurant/${req.params.id}`);
+      });
+    }
+  );
 });
 
 //delete action
 router.delete("/:id/delete", authenticated, (req, res) => {
-  Restaurant.findById(req.params.id, (err, restaurant) => {
-    if (err) return console.error(err);
-    restaurant.remove(err => {
-      return res.redirect("/");
-    });
-  });
+  Restaurant.findOne(
+    { _id: req.params.id, userId: req.user._id },
+    (err, restaurant) => {
+      if (err) return console.error(err);
+      restaurant.remove(err => {
+        return res.redirect("/");
+      });
+    }
+  );
 });
 
 module.exports = router;

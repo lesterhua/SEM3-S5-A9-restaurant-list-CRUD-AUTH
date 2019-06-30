@@ -6,7 +6,7 @@ const { authenticated } = require("../config/auth");
 //route setting for index page
 router.get("/", authenticated, (req, res) => {
   //use Model find to get MongoDB to controller
-  Restaurant.find((err, restaurant) => {
+  Restaurant.find({ userId: req.user._id }, (err, restaurant) => {
     if (err) return console.error(err);
     return res.render("index", { restaurants: restaurant });
   });
