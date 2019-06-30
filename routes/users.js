@@ -14,7 +14,31 @@ router.get("/login", (req, res) => {
 
 //註冊action
 router.post("/register", (req, res) => {
-  res.send("register action");
+  const { name, email, password, password2 } = req.body;
+  // console.log("req.body", req.body);
+  User.findOne({ email: email }).then(user => {
+    if (user) {
+      console.log("This email is exist!");
+      res.render("register", {
+        name,
+        email,
+        password,
+        password2
+      });
+    } else {
+      const newUser = new User({
+        name,
+        email,
+        password
+      });
+      newUser
+        .save()
+        .then(user => {
+          res.redirect("/");
+        })
+        .catch(err => console.log(err));
+    }
+  });
 });
 
 //登入action
