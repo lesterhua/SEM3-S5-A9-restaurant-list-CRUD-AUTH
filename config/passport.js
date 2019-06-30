@@ -1,6 +1,7 @@
 const LocalStrategy = require("passport-local").Strategy;
 const mongoose = require("mongoose");
 const User = require("../models/users");
+const bcrypt = require("bcryptjs");
 
 module.exports = passport => {
   passport.use(
@@ -11,13 +12,21 @@ module.exports = passport => {
             message: "That email is not registered!"
           });
         }
-        if (user.password != password) {
-          return done(null, false, { message: "Email or Password incorrect" });
-        }
-        return done(null, user);
+        // 解密
+        bcrypt.compare(password, user.password, (err, isMatch) => {
+          if (err) throw err;
+          if (isMatch) {
+            return done(null, user);
+          } else {
+            return done(null, false, {
+              message: "Email or Password incorrect"
+            });
+          }
+        });
       });
     })
   );
+
   passport.serializeUser((user, done) => {
     done(null, user.id);
   });
