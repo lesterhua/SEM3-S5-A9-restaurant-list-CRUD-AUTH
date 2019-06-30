@@ -9,7 +9,7 @@ const methodOverride = require("method-override");
 const session = require("express-session");
 const passport = require("passport");
 
-const port = 2800;
+const port = 3000;
 
 // 判別開發環境
 if (process.env.NODE_ENV !== "production") {
