@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const User = require("../models/users");
 
 //註冊面頁
 router.get("/register", (req, res) => {
