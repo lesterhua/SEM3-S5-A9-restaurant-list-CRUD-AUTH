@@ -7,33 +7,21 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <script src="https://kit.fontawesome.com/d0bd7a4c6e.js"></script>
   <link rel="stylesheet" href="/stylesheets/style.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  {{!-- bootswatch --}}
+  <link rel="stylesheet" href="https://bootswatch.com/4/journal/bootstrap.min.css">
   <title>Restaurant</title>
 </head>
 
 <body>
   <header>
     <!-- navigation -->
-    <nav class="navbar navbar-light bg-light" style="display: block;">
-      <div class="row">
-        <div class="col-sm-10">
-
-          {{!-- <div class="container"> --}}
-          <a class="navbar-brand" style="display: inline;" href="/">
-            <img src="https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/6227/restaurant-list-logo.png"
-              width="30" height="30" class="d-inline-block align-top" alt="我的餐廳清單">
-            我的餐廳清單
-          </a>
-          {{!-- </div> --}}
-        </div>
-        <div class="col-sm-2">
-          <a href="/restaurant/new" class="btn btn-success btn-lg "
-            style="display: inline; width:150px; margin:0 auto; margin-top: 20px;">Create</a>
-
-        </div>
-      </div>
-
+    <nav class="navbar navbar-light bg-light justify-content-between">
+      <a class="navbar-brand" href="/">
+        <img src="https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/6227/restaurant-list-logo.png"
+          width="30" height="30" class="d-inline-block align-top" alt="我的餐廳清單">
+        我的餐廳清單
+      </a>
+      <a href="/restaurant/new" class="btn btn-success btn-lg ">Create</a>
     </nav>
 
     <div class="banner"></div>
