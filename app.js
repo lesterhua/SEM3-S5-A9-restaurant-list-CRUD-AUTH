@@ -11,6 +11,12 @@ const passport = require("passport");
 
 const port = 2800;
 
+// 判別開發環境
+if (process.env.NODE_ENV !== "production") {
+  // 如果不是 production 模式
+  require("dotenv").config(); // 使用 dotenv 讀取 .env 檔案
+}
+
 // 使用 express session
 app.use(
   session({
@@ -73,6 +79,7 @@ app.use("/", require("./routes/home"));
 app.use("/restaurant", require("./routes/restaurant"));
 app.use("/sort", require("./routes/sort"));
 app.use("/users", require("./routes/users"));
+app.use("/auth", require("./routes/auths"));
 
 //starting and listen web server
 app.listen(port, () => {
