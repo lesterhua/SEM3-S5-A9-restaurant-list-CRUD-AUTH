@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const Restaurant = require("../models/restaurant");
+const { authenticated } = require("../config/auth");
 
 //route setting for index page
-router.get("/", (req, res) => {
+router.get("/", authenticated, (req, res) => {
   //use Model find to get MongoDB to controller
   Restaurant.find((err, restaurant) => {
     if (err) return console.error(err);
