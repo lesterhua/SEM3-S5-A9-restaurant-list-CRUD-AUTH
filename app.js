@@ -6,8 +6,31 @@ const Restaurant = require("./models/restaurant");
 const exphbs = require("express-handlebars");
 const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
+const session = require("express-session");
+const passport = require("passport");
 
 const port = 2800;
+
+// 使用 express session
+app.use(
+  session({
+    secret: "fuiwefbfwefwjbf"
+    // secret: 定義一組自己的私鑰（字串)
+  })
+);
+
+// 使用 Passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+// 將值載入 Passport config裡的passport
+require("./config/passport")(passport);
+
+//登入後可以取得使用者的資訊方便我們在 view 裡面直接使用
+app.use((req, res, next) => {
+  res.locals.user = req.user;
+  next();
+});
 
 //connection MongoDB
 mongoose.connect("mongodb://127.0.0.1/restaurant", { useNewUrlParser: true });
