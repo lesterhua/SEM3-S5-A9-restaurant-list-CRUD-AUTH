@@ -42,6 +42,7 @@ db.once("open", () => {
 app.use("/", require("./routes/home"));
 app.use("/restaurant", require("./routes/restaurant"));
 app.use("/sort", require("./routes/sort"));
+app.use("/users", require("./routes/users"));
 
 //starting and listen web server
 app.listen(port, () => {
