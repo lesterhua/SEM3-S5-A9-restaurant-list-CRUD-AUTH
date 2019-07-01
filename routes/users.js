@@ -11,18 +11,33 @@ router.get("/register", (req, res) => {
 
 //登入頁面
 router.get("/login", (req, res) => {
-  res.render("login");
+  let errors = [];
+  errors.push({ message: req.flash("error")[0] });
+  if (errors[0].message === undefined) {
+    res.render("login");
+  } else {
+    res.render("login", {
+      errors
+    });
+  }
 });
 
 //註冊action
 router.post("/register", (req, res) => {
-  const { name, email, password, password2 } = req.body;
-
+  const { email, password, password2 } = req.body;
+  let { name } = req.body;
+  let randomName = Math.random()
+    .toString(36)
+    .slice(-5);
   // 加入錯誤訊息提示
   let errors = [];
 
-  if (!name || !email || !password || !password2) {
-    errors.push({ message: "所有欄位都是必填" });
+  if (!email || !password || !password2) {
+    errors.push({ message: "email和password,欄位都是必填" });
+  }
+
+  if (!name) {
+    name = randomName;
   }
 
   if (password !== password2) {
@@ -75,11 +90,15 @@ router.post("/register", (req, res) => {
   }
 });
 
-//登入action
+// 登入action;
 router.post("/login", (req, res, next) => {
+  if (!req.body.email || !req.body.password) {
+    req.flash("warning_msg", "所有欄位都是必填!請重新登入");
+  }
   passport.authenticate("local", {
     successRedirect: "/",
-    failureRedirect: "/users/login"
+    failureRedirect: "/users/login",
+    failureFlash: true
   })(req, res, next);
 });
 

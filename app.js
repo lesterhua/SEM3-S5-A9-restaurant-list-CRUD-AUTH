@@ -18,6 +18,13 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config(); // 使用 dotenv 讀取 .env 檔案
 }
 
+//setting express engine into handlebars
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+
+//use body-parse on express
+app.use(bodyParser.urlencoded({ extended: true }));
+
 // 使用 express session
 app.use(
   session({
@@ -28,40 +35,12 @@ app.use(
   })
 );
 
-//use connect-flash
-app.use(flash());
-
 // 使用 Passport
 app.use(passport.initialize());
 app.use(passport.session());
 
-// 將值載入 Passport config裡的passport
-require("./config/passport")(passport);
-
-//登入後可以取得使用者的資訊方便我們在 view 裡面直接使用
-app.use((req, res, next) => {
-  res.locals.user = req.user;
-  // 辨識使用者是否已經登入的變數，讓 view 可以使用
-  res.locals.isAuthenticated = req.isAuthenticated;
-  res.locals.success_msg = req.flash("success_msg");
-  res.locals.warning_msg = req.flash("warning_msg");
-
-  next();
-});
-
-//connection MongoDB
-mongoose.connect("mongodb://127.0.0.1/restaurant", {
-  useNewUrlParser: true,
-  useCreateIndex: true
-});
-
-//setting express engine into handlebars
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
-app.set("view engine", "handlebars");
-
-//use body-parse on express
-app.use(bodyParser.urlencoded({ extended: true }));
-
+//use connect-flash
+app.use(flash());
 // use method-override
 app.use(methodOverride("_method"));
 
@@ -71,6 +50,12 @@ app.use(express.static("public"));
 //Assign Mongoose to db
 const db = mongoose.connection;
 
+//connection MongoDB
+mongoose.connect("mongodb://127.0.0.1/restaurant", {
+  useNewUrlParser: true,
+  useCreateIndex: true
+});
+
 // db connecting confirm if error
 db.on("error", () => {
   console.log("mongodb error");
@@ -79,6 +64,19 @@ db.on("error", () => {
 // db connecting confirm if success
 db.once("open", () => {
   console.log("mongodb connected!");
+});
+
+// 將值載入 Passport config裡的passport
+require("./config/passport")(passport);
+
+//登入後可以取得使用者的資訊方便我們在 view 裡面直接使用
+app.use((req, res, next) => {
+  res.locals.user = req.user;
+  // 辨識使用者是否已經登入的變數，讓 view 可以使用
+  res.locals.isAuthenticated = req.isAuthenticated();
+  res.locals.success_msg = req.flash("success_msg");
+  res.locals.warning_msg = req.flash("warning_msg");
+  next();
 });
 
 // use routes
