@@ -1,6 +1,6 @@
 # 餐廳清單
 
-使用 Node.js + Express + MongoDB 打造的餐廳清單網站，可以新增、刪除、修改、顯示餐廳詳細的介紹。
+使用 Node.js + Express + MongoDB 打造的餐廳清單網站，可以新增、刪除、修改、顯示餐廳詳細的介紹。以及打造使用者認證系統。
 
 ## Features - 產品功能
 
@@ -11,14 +11,27 @@
 - 使用者可以修改一家餐廳的資訊
 - 使用者可以刪除一家餐廳
 - 使用者可以排列餐廳
+- 使用者可以註冊帳號，註冊的資料包括：名字、email、密碼、確認密碼
+- 使用者註冊、登入時，有錯誤，會顯示告知使用者其中的錯誤訊息
+- 使用者的密碼要使用 bcrypt 來處理
+- 使用者也可以透過 Facebook Login 直接登入
 
 ## Environment SetUp - 環境建置
 
 - node.js v10.16.0
 - express 4.17.1
-- express-handlebars 3.1.0"
-- mongoose 5.6.0"
+- express-handlebars 3.1.0
+- mongoose 5.6.0
 - mongo DB
+- bcryptjs 2.4.3
+- body-parser 1.19.0
+- connect-flash 0.1.1
+- dotenv 8.0.0
+- express-session 1.16.2
+- method-override 3.0.0
+- passport 0.4.0
+- passport-facebook 3.0.0
+- passport-local 1.0.0
 
 ## Installing - 專案安裝流程
 
@@ -57,7 +70,7 @@ node restaurantSeeder.js
 在 Terminal 輸入 npm run dev  指令
 ```
 
-#### 安裝成功後，會在終端機看到訊息"Express is running on :http://localhost:2800
+#### 安裝成功後，會在終端機看到訊息"Express is running on :http://localhost:3000
 
 ## 畫面 - Demo
 
