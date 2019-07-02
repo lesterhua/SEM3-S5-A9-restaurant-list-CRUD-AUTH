@@ -42,7 +42,7 @@
 3. 打開你的 terminal，Clone 此專案至本機電腦
 
 ```
- https://github.com/lesterhua/SEM3-S4-A7-restaurant-list-CRUD.git
+ https://github.com/lesterhua/SEM3-S5-A9-restaurant-list-CRUD-AUTH.git
 ```
 
 4. 開啟終端機(Terminal)，進入存放此專案的資料夾
