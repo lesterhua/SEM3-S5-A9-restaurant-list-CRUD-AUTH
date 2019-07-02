@@ -74,7 +74,15 @@ node restaurantSeeder.js
 
 ## 畫面 - Demo
 
-![alt text](https://github.com/lesterhua/SEM3-S2-A1-restaurant-list/blob/master/public/views.gif)
+![alt text](https://github.com/lesterhua/SEM3-S5-A9-restaurant-list-CRUD-AUTH/blob/master/public/fb.gif)
+
+![alt text](https://github.com/lesterhua/SEM3-S5-A9-restaurant-list-CRUD-AUTH/blob/master/public/login-info.gif)
+
+![alt text](https://github.com/lesterhua/SEM3-S5-A9-restaurant-list-CRUD-AUTH/blob/master/public/register-info.gif)
+
+![alt text](https://github.com/lesterhua/SEM3-S5-A9-restaurant-list-CRUD-AUTH/blob/master/public/seeder1.gif)
+
+![alt text](https://github.com/lesterhua/SEM3-S5-A9-restaurant-list-CRUD-AUTH/blob/master/public/seeder2.gif)
 
 ## 作者 - Authors
 
