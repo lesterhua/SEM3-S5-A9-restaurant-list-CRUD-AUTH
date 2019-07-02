@@ -13,19 +13,26 @@ router.get("/", authenticated, (req, res) => {
 });
 
 // route setting for search bar
-router.get("/search", (req, res) => {
+router.get("/search", authenticated, (req, res) => {
   console.log("req.query.keyword", req.query.keyword);
-  const keyword = req.query.keyword;
-  Restaurant.find((err, restaurant) => {
+  Restaurant.find({ userId: req.user._id }, (err, restaurant) => {
+    const keyword = req.query.keyword;
     if (err) return console.error(err);
 
     const searchResult = restaurant.filter(({ name, category }) => {
-      return (
-        name.toLowerCase().includes(keyword.toLowerCase()) ||
-        category.toLowerCase().includes(keyword.toLowerCase())
-      );
+      if (keyword) {
+        return (
+          name.toLowerCase().includes(keyword.toLowerCase()) ||
+          category.toLowerCase().includes(keyword.toLowerCase())
+        );
+      } else {
+        return restaurant;
+      }
     });
-    return res.render("index", { restaurants: searchResult, keyword: keyword });
+    return res.render("index", {
+      restaurants: searchResult,
+      keyword: keyword
+    });
   });
 });
 

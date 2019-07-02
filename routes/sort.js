@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const Restaurant = require("../models/restaurant");
+const { authenticated } = require("../config/auth");
 
 //Sort
-router.get("/nameasc", (req, res) => {
-  Restaurant.find({})
+router.get("/nameasc", authenticated, (req, res) => {
+  Restaurant.find({ userId: req.user._id })
     .sort({ name_en: "asc" })
     .exec((err, restaurant) => {
       if (err) return console.error(err);
@@ -12,8 +13,8 @@ router.get("/nameasc", (req, res) => {
     });
 });
 
-router.get("/namedesc", (req, res) => {
-  Restaurant.find({})
+router.get("/namedesc", authenticated, (req, res) => {
+  Restaurant.find({ userId: req.user._id })
     .sort({ name_en: "desc" })
     .exec((err, restaurant) => {
       if (err) return console.error(err);
@@ -21,8 +22,8 @@ router.get("/namedesc", (req, res) => {
     });
 });
 
-router.get("/category", (req, res) => {
-  Restaurant.find({})
+router.get("/category", authenticated, (req, res) => {
+  Restaurant.find({ userId: req.user._id })
     .sort({ category: "asc" })
     .exec((err, restaurant) => {
       if (err) return console.error(err);
@@ -30,8 +31,8 @@ router.get("/category", (req, res) => {
     });
 });
 
-router.get("/rating", (req, res) => {
-  Restaurant.find({})
+router.get("/rating", authenticated, (req, res) => {
+  Restaurant.find({ userId: req.user._id })
     .sort({ rating: "asc" })
     .exec((err, restaurant) => {
       if (err) return console.error(err);
